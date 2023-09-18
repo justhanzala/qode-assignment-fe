@@ -10,7 +10,7 @@ const ImagesGrid = ({ images }: ImagesGridProps) => {
   return (
     <Box my="8">
       <Container maxW="container.xl">
-        {images.length ? (
+        {images?.length ? (
           <SimpleGrid columns={3} spacing="4">
             {images.map((data: any, index: number) => (
               <Box bg="blackAlpha.400" key={index}>
