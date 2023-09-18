@@ -57,7 +57,7 @@ const UploadImageModal = ({
                 type="text"
                 name="comment"
                 placeholder="Your Comment"
-                value={imageData.comment}
+                value={imageData?.comment}
                 onChange={handleChange}
                 required
               />

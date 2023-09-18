@@ -52,8 +52,8 @@ const Home = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("image", imageData.image);
-    formData.append("comment", imageData.comment);
+    formData.append("image", imageData?.image);
+    formData.append("comment", imageData?.comment);
 
     try {
       await axios.post(`${API_BASE_URL}/api/addImage`, formData, {
