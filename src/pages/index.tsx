@@ -17,7 +17,7 @@ interface ImageDataTypes {
   comment: string;
 }
 
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "https://assignment.api.hanzala.co.in";
 
 const Home = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
