@@ -7,8 +7,8 @@ import {
   Box,
   Container,
   Heading,
-  SimpleGrid,
   Image,
+  Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -20,11 +20,12 @@ interface ImageDataTypes {
 const API_BASE_URL = "https://assignment.api.hanzala.co.in";
 
 const Home = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [imageData, setImageData] = useState<ImageDataTypes>({
     image: null,
     comment: "",
   });
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<any>([]);
 
   const handleClose = () => {
@@ -40,16 +41,20 @@ const Home = () => {
   };
 
   const fetchImages = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(`${API_BASE_URL}/api/getImages`);
       setImages(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching images:", error);
+      setLoading(false);
     }
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("image", imageData?.image);
@@ -61,8 +66,14 @@ const Home = () => {
       });
       fetchImages();
       setIsOpenModal(false);
+      setImageData({
+        image: null,
+        comment: "",
+      });
+      setLoading(false);
     } catch (error) {
       console.error("Error creating image and comment:", error);
+      setLoading(false);
     }
   };
 
@@ -96,7 +107,15 @@ const Home = () => {
           </Container>
         </Box>
 
-        <ImagesGrid images={images} />
+        {loading ? (
+          <Box my="8">
+            <Container maxW="container.xl">
+              <Spinner />
+            </Container>
+          </Box>
+        ) : (
+          <ImagesGrid images={images} loading={loading} />
+        )}
 
         <UploadImageModal
           handleSaveImages={handleSubmit}

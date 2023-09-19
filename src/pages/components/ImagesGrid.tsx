@@ -2,18 +2,19 @@ import { Box, Container, SimpleGrid, Heading, Image } from "@chakra-ui/react";
 
 interface ImagesGridProps {
   images: [];
+  loading: boolean;
 }
 
 const API_BASE_URL = "https://assignment.api.hanzala.co.in";
 
-const ImagesGrid = ({ images }: ImagesGridProps) => {
+const ImagesGrid = ({ images, loading }: ImagesGridProps) => {
   return (
     <Box my="8">
       <Container maxW="container.xl">
         {images?.length ? (
           <SimpleGrid columns={3} spacing="4">
             {images.map((data: any, index: number) => (
-              <Box bg="blackAlpha.400" key={index}>
+              <Box position="relative" key={index}>
                 <Image
                   src={`${API_BASE_URL}/uploads/${data?.imagePath}`}
                   alt={data?.comment}
@@ -22,7 +23,23 @@ const ImagesGrid = ({ images }: ImagesGridProps) => {
                   width="full"
                   rounded="md"
                 />
-                <h4>{data?.comment}</h4>
+                <Box
+                  position="absolute"
+                  bg="blackAlpha.400"
+                  bottom={0}
+                  right={0}
+                  left={0}
+                  p="3"
+                >
+                  <Heading
+                    as="h4"
+                    fontWeight="semibold"
+                    textColor="white"
+                    size="sm"
+                  >
+                    {data?.comment}
+                  </Heading>
+                </Box>
               </Box>
             ))}
           </SimpleGrid>
