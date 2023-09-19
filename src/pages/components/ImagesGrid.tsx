@@ -13,7 +13,7 @@ const ImagesGrid = ({ images, loading }: ImagesGridProps) => {
       <Container maxW="container.xl">
         {images?.length || !loading ? (
           <SimpleGrid columns={{ sm: 2, md: 3 }} spacing="4">
-            {images.map((data: any, index: number) => (
+            {images?.map((data: any, index: number) => (
               <Box position="relative" key={index}>
                 <Image
                   src={`${API_BASE_URL}/uploads/${data?.imagePath}`}
