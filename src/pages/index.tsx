@@ -54,26 +54,30 @@ const Home = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setLoading(true);
-
+    
     const formData = new FormData();
     formData.append("image", imageData?.image);
     formData.append("comment", imageData?.comment);
-
-    try {
-      await axios.post(`${API_BASE_URL}/api/addImage`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      fetchImages();
-      setIsOpenModal(false);
-      setImageData({
-        image: null,
-        comment: "",
-      });
-      setLoading(false);
-    } catch (error) {
-      console.error("Error creating image and comment:", error);
-      setLoading(false);
+    
+    if (imageData?.image?.size <= 400000) {
+      setLoading(true);
+      try {
+        await axios.post(`${API_BASE_URL}/api/addImage`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        fetchImages();
+        setIsOpenModal(false);
+        setImageData({
+          image: null,
+          comment: "",
+        });
+        setLoading(false);
+      } catch (error) {
+        console.error("Error creating image and comment:", error);
+        setLoading(false);
+      }
+    } else {
+      alert("Max File size allowed is 4MB");
     }
   };
 

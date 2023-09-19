@@ -41,6 +41,7 @@ const UploadImageModal = ({
               <Input
                 type="file"
                 name="image"
+                accept="image/*"
                 placeholder="Your Image"
                 onChange={(event: any) => {
                   const file = event.target.files[0];
