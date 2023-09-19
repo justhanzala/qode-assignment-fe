@@ -11,8 +11,8 @@ const ImagesGrid = ({ images, loading }: ImagesGridProps) => {
   return (
     <Box my="8">
       <Container maxW="container.xl">
-        {images?.length ? (
-          <SimpleGrid columns={3} spacing="4">
+        {images?.length || !loading ? (
+          <SimpleGrid columns={{ sm: 2, md: 3 }} spacing="4">
             {images.map((data: any, index: number) => (
               <Box position="relative" key={index}>
                 <Image
